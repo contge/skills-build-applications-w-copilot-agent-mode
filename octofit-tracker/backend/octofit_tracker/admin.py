@@ -11,7 +11,7 @@ class TeamAdmin(admin.ModelAdmin):
 
 @admin.register(Activity)
 class ActivityAdmin(admin.ModelAdmin):
-    list_display = ("user", "type", "duration", "date")
+    list_display = ("user", "activity_type", "duration", "date")
 
 @admin.register(Leaderboard)
 class LeaderboardAdmin(admin.ModelAdmin):

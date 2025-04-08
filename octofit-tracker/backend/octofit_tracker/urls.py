@@ -16,9 +16,9 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import UserViewSet, TeamViewSet, ActivityViewSet, LeaderboardViewSet, WorkoutViewSet
+from .views import UserViewSet, TeamViewSet, ActivityViewSet, LeaderboardViewSet, WorkoutViewSet, api_root
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -31,6 +31,7 @@ router.register(r'workouts', WorkoutViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('', api_root, name='api-root'),
 ]
 
 urlpatterns += router.urls
@@ -44,5 +45,3 @@ def api_root(request, format=None):
         'leaderboard': '/leaderboard/',
         'workouts': '/workouts/'
     })
-
-urlpatterns.append(path('', api_root))
