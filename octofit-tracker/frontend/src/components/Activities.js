@@ -1,11 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import { getToken } from '../utils/auth';
 
 function Activities() {
   const [activities, setActivities] = useState([]);
 
   useEffect(() => {
-    fetch('https://[REPLACE-THIS-WITH-YOUR-CODESPACE-NAME]-8000.app.github.dev/api/activities/')
-      .then(response => response.json())
+    fetch('http://localhost:8000/api/activity/', {
+      headers: {
+        'Authorization': getToken(),
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then(data => setActivities(data))
       .catch(error => console.error('Error fetching activities:', error));
   }, []);

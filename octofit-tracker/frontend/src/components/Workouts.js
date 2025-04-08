@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { getToken } from '../utils/auth';
 
 function Workouts() {
   const [workouts, setWorkouts] = useState([]);
 
   useEffect(() => {
-    fetch('https://[REPLACE-THIS-WITH-YOUR-CODESPACE-NAME]-8000.app.github.dev/api/workouts/')
+    fetch('http://localhost:8000/api/workouts/', {
+      headers: {
+        'Authorization': getToken(),
+        'Content-Type': 'application/json'
+      }
+    })
       .then(response => response.json())
       .then(data => setWorkouts(data))
       .catch(error => console.error('Error fetching workouts:', error));

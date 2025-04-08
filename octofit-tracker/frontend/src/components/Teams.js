@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { getToken } from '../utils/auth';
 
 function Teams() {
   const [teams, setTeams] = useState([]);
 
   useEffect(() => {
-    fetch('https://[REPLACE-THIS-WITH-YOUR-CODESPACE-NAME]-8000.app.github.dev/api/teams/')
+    fetch('http://localhost:8000/api/teams/', {
+      headers: {
+        'Authorization': getToken(),
+        'Content-Type': 'application/json'
+      }
+    })
       .then(response => response.json())
       .then(data => setTeams(data))
       .catch(error => console.error('Error fetching teams:', error));
